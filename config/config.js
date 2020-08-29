@@ -1,27 +1,25 @@
 import { defineConfig } from 'umi';
+import routes from './routes';
+import proxy from './proxy';
 
 export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
   plugins: [],
-
-  // history: {
-  //   type: 'browser',
-  // },
-  routes: [
-    { path: '/', component: '@/pages/index' },
-  ],
+  hash: true,
+  routes, // 路由
   // 配置布局
-  layout: {},
+  // layout: {},
   // 配置dva
   dva: {
     immer: true,
-    hmr: false,
+    hmr: false, // 热更新
   },
   // 配置antd
-  antd: {
-    dark: false,
-    compact: true,
+  antd: {},
+  // proxy, // 开启代理
+  manifest: {
+    basePath: '/',
   },
 });
