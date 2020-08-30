@@ -1,7 +1,7 @@
 /**
  * 帖子 service
  */
-import request from 'umi-request';
+import request from '@/utils/request';
 
 /**
  * 查询帖子详情

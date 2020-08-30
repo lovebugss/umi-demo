@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { useParams, connect } from 'umi';
 import { Button } from 'antd';
+import PostInfo from './components/PostInfo';
+import ScoreDetailTable from './components/ScoreDetailTable';
 
-export default () => {
-  const { id } = useParams();
-  return (
-    <div>
+class PostDeatil extends Component {
+  componentDidMount() {
+    const { dispatch, match } = this.props;
+    const id = match.params.id;
+    dispatch({
+      type: 'postDetail/fetchPostById',
+      id,
+    });
+  }
 
-      <Button type="primary">{id}</Button>
-      <Button>Default Button</Button>
-      <Button type="dashed">Dashed Button</Button>
-      <br />
-      <Button type="text">Text Button</Button>
-      <Button type="link">Link Button</Button>
-    </div>
-  );
+  render() {
+    const { postDetail, loading } = this.props;
+    const dataLoading = loading || postDetail === {};
+    return (
+      <div>
+        <PostInfo postDetail={postDetail} />
+        <ScoreDetailTable
+          loading={dataLoading}
+          scoreDetail={postDetail.scoreDetails}
+        />
+      </div>
+    );
+  }
 }
+
+const mapStateToProps = ({ loading, postDetail }) => {
+  return {
+    postDetail: postDetail.postDetail,
+    loading: loading.effects['postDetail/fetchPostById'],
+  };
+};
+export default connect(mapStateToProps)(PostDeatil);

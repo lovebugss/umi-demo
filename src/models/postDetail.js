@@ -1,22 +1,26 @@
 /**
  * 帖子详情专用model
  */
-import { queryPostDetailById } from './service';
+import { queryPostDetailById } from '../service/post';
 
 export default {
   namespace: 'postDetail',
   state: {
-    postId: '',
+    postDetail: {},
   },
   effects: {
-    * fetchPostById(id, { call, put }) {
+    *fetchPostById({ id }, { call, put }) {
       const response = yield call(queryPostDetailById, id);
-      put({
+      yield put({
         type: 'queryPost',
         payload: response,
       });
     },
   },
-  reducers: {},
+  reducers: {
+    queryPost(state, action) {
+      return { ...state, postDetail: action.payload.data || {} };
+    },
+  },
   subscriptions: {},
 };

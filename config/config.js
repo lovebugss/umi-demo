@@ -6,8 +6,13 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  plugins: [],
   hash: true,
+  targets: {
+    ie: 11,
+  },
+  dynamicImport: {
+    loading: '@/components/PageLoading/index',
+  },
   routes, // 路由
   // 配置布局
   // layout: {},
@@ -22,4 +27,7 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  // request: {
+  //   dataField: 'data',
+  // },
 });
